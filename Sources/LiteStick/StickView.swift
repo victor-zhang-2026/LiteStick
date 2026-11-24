@@ -11,6 +11,9 @@ struct StickView: View {
     @State private var pinVisual = false
     @State private var showCopied = false
     @State private var dragPrevious: CGSize = .zero
+    private func localized(_ chinese: String, _ english: String) -> String {
+        language == "zh" ? chinese : english
+    }
     private var dark: Bool {
         appearance == "dark" || (appearance == "system" && systemScheme == .dark)
     }
@@ -45,18 +48,18 @@ struct StickView: View {
                 .font(.system(size: 14, weight: .semibold))
                 .foregroundStyle(Color(nsColor: .labelColor))
             if showCopied {
-                Text(Copy.text("已复制", "Copied"))
+                Text(localized("已复制", "Copied"))
                     .font(.system(size: 11, weight: .medium))
                     .foregroundStyle(.secondary)
                     .transition(.opacity)
             }
             Spacer(minLength: 0)
-            button("doc.on.doc", help: Copy.text("复制全部", "Copy All"), disabled: store.text.isEmpty) { copyAll() }
-            button(pinVisual ? "pin.fill" : "pin", help: pinVisual ? Copy.text("取消固定", "Unpin Panel") : Copy.text("固定浮窗", "Pin Panel")) {
+            button("doc.on.doc", help: localized("复制全部", "Copy All"), disabled: store.text.isEmpty) { copyAll() }
+            button(pinVisual ? "pin.fill" : "pin", help: pinVisual ? localized("取消固定", "Unpin Panel") : localized("固定浮窗", "Pin Panel")) {
                 controller.togglePin(); pinVisual = controller.pinned
             }
-            button("trash", help: Copy.text("清空", "Clear"), disabled: store.text.isEmpty) { clearAll() }
-            button("xmark", help: Copy.text("收起", "Close"), hoverColor: .red) {
+            button("trash", help: localized("清空", "Clear"), disabled: store.text.isEmpty) { clearAll() }
+            button("xmark", help: localized("收起", "Close"), hoverColor: .red) {
                 editing = false
                 controller.dismissPanel()
                 pinVisual = false
@@ -87,7 +90,7 @@ struct StickView: View {
             }
             .overlay(alignment: .topLeading) {
                 if store.text.isEmpty && !editing {
-                    Text(Copy.text("随手记点什么……", "Stick something here…"))
+                    Text(localized("随手记点什么……", "Stick something here…"))
                         .font(.system(size: 14))
                         .foregroundStyle(.secondary)
                         .padding(.leading, 10)

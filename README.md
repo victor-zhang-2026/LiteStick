@@ -1,5 +1,9 @@
 # LiteStick
 
+[简体中文](#简体中文) · [English](#english)
+
+## 简体中文
+
 LiteStick — Stick it here for later.
 随手一贴，随时取用。
 
@@ -57,3 +61,25 @@ LiteStick 永远只保留一张便利贴。
 Hover → Edit → Copy → Clear
 
 Less is more.
+
+## English
+
+LiteStick keeps one plain-text sticky note within reach on macOS. Hover over the floating ball to open the note, then click the body to type or paste.
+
+### Features
+
+- Drag the floating ball to move it. LiteStick remembers its position.
+- Move the pointer away to dismiss the preview. While editing, click outside to close the panel. Pin the panel to keep it visible.
+- Edit multiline plain text with undo and redo. Long notes scroll inside the panel.
+- Copy the whole note in one click, or clear it and use Undo to recover the text if needed.
+- Right-click the floating ball to switch between Simplified Chinese and English, choose Light, Dark or System appearance, view About, or quit.
+
+### Download and install
+
+The release package requires macOS 14 or later on an Apple Silicon Mac. Download the ZIP from [GitHub Releases](https://github.com/victor-zhang-2026/LiteStick/releases/latest), unzip it, and move LiteStick.app to Applications.
+
+LiteStick saves the note and preferences locally using UserDefaults. Moving the app to the Trash can leave that data on your Mac.
+
+### Build from source
+
+Run `./scripts/build-app.sh` from the repository root. It builds and signs `build/LiteStick.app` using the Command Line Tools. To regenerate the app icon, run `python3 scripts/generate-icon.py` with Pillow installed.
