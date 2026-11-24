@@ -10,7 +10,6 @@ struct StickView: View {
     @State private var editing = false
     @State private var pinVisual = false
     @State private var showCopied = false
-    @State private var dragPrevious: CGSize = .zero
     private func localized(_ chinese: String, _ english: String) -> String {
         language == "zh" ? chinese : english
     }
@@ -68,12 +67,6 @@ struct StickView: View {
         .padding(.horizontal, 16)
         .frame(height: 46)
         .zIndex(10)
-        .contentShape(Rectangle())
-        .gesture(DragGesture(minimumDistance: 4).onChanged { value in
-            let delta = CGSize(width: value.translation.width - dragPrevious.width, height: -(value.translation.height - dragPrevious.height))
-            dragPrevious = value.translation
-            controller.movePanel(by: NSSize(width: delta.width, height: delta.height), ended: false)
-        }.onEnded { _ in dragPrevious = .zero; controller.movePanel(by: .zero, ended: true) })
     }
     private var editor: some View {
         StickEditor(text: $store.text,

@@ -122,7 +122,7 @@ import AppKit
         NSApplication.shared.activate(ignoringOtherApps: true)
         let alert = NSAlert()
         alert.messageText = "LiteStick"
-        alert.informativeText = Copy.text("V1.0.1\n随手一贴，随时取用。", "V1.0.1\nStick it here for later.")
+        alert.informativeText = Copy.text("V1.0.2\n随手一贴，随时取用。", "V1.0.2\nStick it here for later.")
         alert.alertStyle = .informational
         alert.runModal()
     }

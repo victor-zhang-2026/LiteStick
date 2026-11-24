@@ -49,7 +49,7 @@ enum Copy {
         NSApplication.shared.activate(ignoringOtherApps: true)
         let alert = NSAlert()
         alert.messageText = "LiteStick"
-        alert.informativeText = Copy.text("V1.0.1\n随手一贴，随时取用。", "V1.0.1\nStick it here for later.")
+        alert.informativeText = Copy.text("V1.0.2\n随手一贴，随时取用。", "V1.0.2\nStick it here for later.")
         alert.alertStyle = .informational
         alert.runModal()
     }
@@ -99,6 +99,7 @@ final class StickPanel: NSPanel {
         ball.contentView = StickBallView(controller: self)
         panel = StickPanel(contentRect: NSRect(origin: .zero, size: panelSize), styleMask: [.borderless, .nonactivatingPanel], backing: .buffered, defer: false)
         prepare(panel)
+        panel.isMovable = false
         panel.becomesKeyOnlyIfNeeded = true
         panel.hasShadow = true
         panel.contentView = NSHostingView(rootView: StickView(controller: self))
@@ -142,7 +143,7 @@ final class StickPanel: NSPanel {
         editing = active
         if active { cancelClose() } else { scheduleClose() }
     }
-    func setDragging(_ active: Bool) { dragging = active; if active { cancelClose() } else { scheduleClose() } }
+    private func setDragging(_ active: Bool) { dragging = active; if active { cancelClose() } else { scheduleClose() } }
     func togglePin() {
         pinned.toggle()
         UserDefaults.standard.set(pinned, forKey: "pinned")
@@ -211,12 +212,6 @@ final class StickPanel: NSPanel {
             placement.remember(ball)
         }
         if opened { positionPanel() }
-    }
-    func movePanel(by delta: NSSize, ended: Bool) {
-        setDragging(!ended)
-        ball.setFrameOrigin(NSPoint(x: ball.frame.minX + delta.width, y: ball.frame.minY + delta.height))
-        if ended { constrainBall(); placement.remember(ball) }
-        positionPanel()
     }
     private func constrainBall() {
         let center = NSPoint(x: ball.frame.midX, y: ball.frame.midY)
